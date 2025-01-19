@@ -1,0 +1,122 @@
+code,classification
+"n, m = map(int,input().split())
+count = 0
+l = []
+
+for i in range(n):
+  for i2 in range(i,n):
+    if i != i2:
+      l.append([i,i2])
+
+for i in range(m):
+  for i2 in range(i,m):
+    if i != i2:
+      l.append([i,i2])
+print(len(l))",1
+"MOD=10**9+7
+UPPERLIMIT=2*10**5
+MODMUL=[1, 1]+[0]*(UPPERLIMIT-1)
+for i in range(2, UPPERLIMIT+1):
+  MODMUL[i]=MODMUL[i-1]*i%MOD
+MODDIV=[1]*UPPERLIMIT+[pow(MODMUL[-1], MOD-2, MOD)]
+for i in range(UPPERLIMIT, 0, -1):
+  MODDIV[i-1]=MODDIV[i]*i%MOD
+def MODCOMB(n, r):
+  return (((MODMUL[n]*MODDIV[r])%MOD)*MODDIV[n-r])%MOD
+
+N, M=map(int, input().split())
+
+from collections import defaultdict
+def PrimeFactorization(x):
+  out=defaultdict(int)
+  for i in range(2, int(pow(x, 1/2))+1):
+    while x%i==0:
+      out[i]+=1
+      x//=i
+  if x>1:
+    out[x]+=1
+  return out
+
+primenums=PrimeFactorization(M)
+ans=1
+for x in primenums.values():
+  ans*=MODCOMB(N+x-1, N-1)
+  ans%=MOD
+  
+print(ans)",1
+"T,X=map(int,input().split())
+res = T/X
+print(res)",0
+"def is_prime(n):
+  if n == 2: return True
+  if n < 2 or n % 2 == 0: return False
+  return pow(2, n - 1, n) == 1
+
+count = 0
+for i in range(int(input())):
+  if is_prime(int(input())) : count += 1
+print(count)",0
+"a = input()
+a = 48 - a
+print a",0
+"n, k = map(int, input().split())
+
+def cul(x):
+    ans = (1 + x)*x/(2*x)
+    return ans
+
+p = list(map(cul, list(map(int, input().split()))))
+cnt = sum(p[0:k])
+ans = cnt
+for i in range(k, n):
+    cnt += p[i] - p[i - k]
+    ans = max(ans, cnt)
+print(ans)",1
+"a = list(map(int, input().split()))
+count = 0
+while all(x % 2 == 0 for x in a) and count <= 100000:
+	b = [(sum(a) - x) // 2 for x in a]
+	a = b
+	count += 1
+print(count if count <= 100000 else -1)",1
+"# -*- coding: utf-8 -*-
+
+
+def main():
+    a, b, c = map(int, input().split())
+
+    if (a < c < b) or (b < c < a):
+        print('Yes')
+    else:
+        print('No')
+
+
+if __name__ == '__main__':
+    main()
+",0
+"def dfs(parent, connect, passed, N): #深さ優先探索
+    cnt = 0
+    passed.append(parent) #通った点をメモ
+    if len(passed) == N: #全ての点を通過したかの判定
+        cnt = 1
+    for next_ in connect[parent]:
+        if next_ in passed:
+            continue
+        cnt += dfs(next_, connect, passed, N) #全ての点を通るまで再帰. 戻り値の和で何通りかカウント
+    passed.pop() #分岐点に戻る前にメモを1段だけ破棄
+    return cnt    
+
+N, M = map(int, input().split())
+connect = [[] for _ in range(N)]
+for _ in range(M):
+    a, b = map(int, input().split())
+    connect[a-1].append(b-1)
+    connect[b-1].append(a-1)
+ans = dfs(0, connect, [], N) #点0からのdfs
+print(ans)",0
+"import math
+arr = input().split( )
+a = int(arr[0])
+b1, b2 = arr[1].split('.')
+b = int(b1)*100 + int(b2)
+print(a*b//100)",0
